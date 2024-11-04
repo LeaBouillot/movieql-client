@@ -1,7 +1,19 @@
-import React from 'react'
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
-export default function client() {
-  return (
-    <div>client</div>
-  )
-}
+
+const client = new ApolloClient({
+    uri: "http://localhost:4000/",
+    cache: new InMemoryCache(),
+});
+client.query({
+    query: gql`
+        query {
+            allMovies{
+                title
+            }
+        }
+    `,
+})
+.then((res) => console.log(res));
+
+export default client;
